@@ -606,18 +606,16 @@
             <div class="demo">
 
                 <strong>
-                    Demo Login
+                    Demo Credentials
                 </strong>
 
                 <br>
 
-                Email:
-                guest@example.com
+                <b>Guest:</b> guest@example.com / guest123
 
                 <br>
 
-                Password:
-                guest123
+                <b>Admin:</b> admin@staysmart.com / admin123
 
             </div>
 
@@ -677,7 +675,7 @@
 
 
                 // ==========================
-                // CHECK LOGIN
+                // CHECK GUEST LOGIN
                 // ==========================
 
                 if (
@@ -721,22 +719,71 @@
 
                     }, 500);
 
+                    return;
 
                 }
 
-                else {
+
+                // ==========================
+                // CHECK ADMIN LOGIN
+                // ==========================
+
+                if (
+                    email === "admin@staysmart.com" &&
+                    password === "admin123"
+                ) {
 
 
-                    // Wrong login
+                    // Save admin login information
+
+                    localStorage.setItem(
+                        "staysmartUser",
+                        JSON.stringify({
+
+                            role: "admin",
+
+                            email: email
+
+                        })
+                    );
+
+
+                    // Show success message
 
                     message.textContent =
-                        "Invalid email or password.";
+                        "Admin login successful!";
 
 
                     message.className =
-                        "message error";
+                        "message success";
+
+
+                    // ==========================
+                    // REDIRECT TO ADMIN HOME PAGE
+                    // ==========================
+
+                    setTimeout(function() {
+
+                        window.location.href =
+                            "AdminHomePage.HTML";
+
+                    }, 500);
+
+                    return;
 
                 }
+
+
+                // ==========================
+                // INVALID LOGIN
+                // ==========================
+
+                message.textContent =
+                    "Invalid email or password.";
+
+
+                message.className =
+                    "message error";
 
             }
 
