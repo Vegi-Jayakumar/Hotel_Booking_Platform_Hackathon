@@ -2,40 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>StaySmart | Hotel Booking</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>StaySmart - Home</title>
+
 
     <style>
-        /* =========================
-           RESET
-        ========================= */
 
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
             font-family: Arial, sans-serif;
+
         }
+
 
         html {
+
             scroll-behavior: smooth;
+
         }
+
 
         body {
+
             background: #f5f7fb;
+
             color: #172033;
-        }
 
-        button,
-        input,
-        select {
-            font-family: inherit;
-        }
-
-        button {
-            cursor: pointer;
         }
 
 
@@ -44,53 +49,83 @@
         ========================= */
 
         .navbar {
+
             height: 72px;
+
             background: white;
-            border-bottom: 1px solid #e7eaf0;
+
+            border-bottom:
+                1px solid #e7eaf0;
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
             padding: 0 6%;
 
             position: sticky;
+
             top: 0;
+
             z-index: 100;
+
         }
+
 
         .logo {
+
             font-size: 28px;
+
             font-weight: 800;
+
             color: #172033;
+
         }
+
 
         .logo span {
+
             color: #356ae6;
+
         }
+
 
         .nav-links {
+
             display: flex;
+
             align-items: center;
+
             gap: 25px;
+
         }
+
 
         .nav-links a {
+
             text-decoration: none;
+
             color: #596477;
+
             font-size: 14px;
+
             font-weight: 600;
+
         }
 
-        .nav-links a:hover {
-            color: #356ae6;
-        }
 
-        .logout-btn {
+        .logout {
+
             background: #356ae6;
+
             color: white !important;
+
             padding: 10px 18px;
+
             border-radius: 8px;
+
         }
 
 
@@ -99,20 +134,28 @@
         ========================= */
 
         .hero {
+
             min-height: 530px;
 
             background:
+
                 linear-gradient(
-                    rgba(23, 54, 109, 0.78),
-                    rgba(53, 106, 230, 0.60)
+                    rgba(23,54,109,.78),
+                    rgba(53,106,230,.60)
                 ),
-                url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=85");
+
+                url(
+                    "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=85"
+                );
 
             background-size: cover;
+
             background-position: center;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
 
             text-align: center;
@@ -120,40 +163,60 @@
             color: white;
 
             padding: 40px 20px;
+
         }
+
 
         .hero-content {
+
             max-width: 850px;
+
         }
 
-        .hero-small {
+
+        .small-title {
+
             font-size: 12px;
+
             font-weight: 800;
+
             letter-spacing: 3px;
+
             color: #d6e3ff;
+
             margin-bottom: 18px;
+
         }
+
 
         .hero h1 {
+
             font-size: 58px;
+
             line-height: 1.08;
+
             margin-bottom: 20px;
+
         }
 
+
         .hero p {
+
             font-size: 17px;
+
             line-height: 1.7;
+
             color: #e1eaff;
-            max-width: 700px;
-            margin: auto;
+
         }
 
 
         /* =========================
-           SEARCH CONTAINER
+           SEARCH
         ========================= */
 
         .search-container {
+
             max-width: 1100px;
 
             margin: -45px auto 60px;
@@ -163,9 +226,12 @@
             position: relative;
 
             z-index: 10;
+
         }
 
+
         .search-box {
+
             background: white;
 
             border-radius: 15px;
@@ -174,33 +240,47 @@
 
             box-shadow:
                 0 15px 45px
-                rgba(24, 43, 80, 0.15);
+                rgba(24,43,80,.15);
 
             display: grid;
 
             grid-template-columns:
-                1fr 1fr 0.7fr auto;
+                1fr 1fr .7fr auto;
 
             gap: 14px;
+
         }
+
 
         .field {
+
             display: flex;
+
             flex-direction: column;
+
             gap: 7px;
+
         }
 
+
         .field label {
+
             font-size: 11px;
+
             font-weight: 800;
+
             color: #697386;
+
         }
+
 
         .field input,
         .field select {
+
             padding: 12px;
 
-            border: 1px solid #dfe3ea;
+            border:
+                1px solid #dfe3ea;
 
             border-radius: 8px;
 
@@ -208,15 +288,19 @@
 
             background: white;
 
-            color: #172033;
         }
+
 
         .field input:focus,
         .field select:focus {
+
             border-color: #356ae6;
+
         }
 
+
         .search-btn {
+
             border: none;
 
             background: #356ae6;
@@ -230,37 +314,44 @@
             font-weight: 700;
 
             margin-top: 21px;
+
+            cursor: pointer;
+
         }
 
+
         .search-btn:hover {
+
             background: #2858c5;
+
         }
 
 
         /* =========================
-           WELCOME SECTION
+           WELCOME
         ========================= */
 
-        .welcome-section {
+        .welcome {
+
             max-width: 1100px;
 
-            margin: 0 auto;
+            margin: auto;
 
             padding: 20px;
+
         }
 
+
         .welcome-box {
+
             background: white;
 
             border-radius: 18px;
 
             padding: 45px;
 
-            border: 1px solid #e7eaf0;
-
-            box-shadow:
-                0 10px 30px
-                rgba(24, 43, 80, 0.06);
+            border:
+                1px solid #e7eaf0;
 
             display: grid;
 
@@ -270,9 +361,12 @@
             gap: 40px;
 
             align-items: center;
+
         }
 
+
         .welcome-label {
+
             color: #356ae6;
 
             font-size: 11px;
@@ -282,30 +376,40 @@
             letter-spacing: 2px;
 
             margin-bottom: 10px;
+
         }
 
-        .welcome-box h2 {
+
+        .welcome h2 {
+
             font-size: 34px;
 
             line-height: 1.2;
 
             margin-bottom: 15px;
+
         }
 
-        .welcome-box p {
+
+        .welcome p {
+
             color: #697386;
 
             font-size: 14px;
 
             line-height: 1.8;
+
         }
 
+
         .welcome-image {
+
             height: 280px;
 
             border-radius: 14px;
 
-            background-image:
+            background:
+
                 url(
                     "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1000&q=85"
                 );
@@ -313,6 +417,7 @@
             background-size: cover;
 
             background-position: center;
+
         }
 
 
@@ -320,27 +425,30 @@
            FEATURES
         ========================= */
 
-        .features-section {
+        .features {
+
             max-width: 1100px;
 
             margin: 30px auto;
 
             padding: 20px;
-        }
 
-        .features {
             display: grid;
 
             grid-template-columns:
-                repeat(3, 1fr);
+                repeat(3,1fr);
 
             gap: 20px;
+
         }
 
-        .feature-card {
+
+        .feature {
+
             background: white;
 
-            border: 1px solid #e7eaf0;
+            border:
+                1px solid #e7eaf0;
 
             border-radius: 14px;
 
@@ -348,23 +456,20 @@
 
             text-align: center;
 
-            box-shadow:
-                0 8px 25px
-                rgba(24, 43, 80, 0.05);
         }
 
-        .feature-icon {
+
+        .icon {
+
             width: 50px;
 
             height: 50px;
 
-            margin: auto auto 15px;
-
-            border-radius: 50%;
-
             background: #eef3ff;
 
             color: #356ae6;
+
+            border-radius: 50%;
 
             display: flex;
 
@@ -372,37 +477,50 @@
 
             justify-content: center;
 
+            margin: auto auto 15px;
+
             font-size: 22px;
+
         }
 
-        .feature-card h3 {
-            font-size: 17px;
+
+        .feature h3 {
 
             margin-bottom: 8px;
+
+            font-size: 17px;
+
         }
 
-        .feature-card p {
+
+        .feature p {
+
             color: #7b8494;
 
             font-size: 12px;
 
             line-height: 1.6;
+
         }
 
 
         /* =========================
-           SMART PRICING
+           PRICING
         ========================= */
 
-        .pricing-section {
+        .pricing {
+
             max-width: 1100px;
 
             margin: 30px auto;
 
             padding: 20px;
+
         }
 
-        .pricing {
+
+        .pricing-box {
+
             background:
                 linear-gradient(
                     135deg,
@@ -422,9 +540,12 @@
                 1fr 1fr;
 
             gap: 35px;
+
         }
 
+
         .pricing-label {
+
             color: #b9cbff;
 
             font-size: 11px;
@@ -432,58 +553,71 @@
             font-weight: 800;
 
             letter-spacing: 2px;
+
         }
 
+
         .pricing h2 {
+
             font-size: 31px;
 
             margin: 10px 0 12px;
+
         }
 
+
         .pricing p {
+
             color: #dce7ff;
 
             font-size: 13px;
 
             line-height: 1.8;
+
         }
 
-        .pricing-rules {
+
+        .rules {
+
             display: grid;
 
             grid-template-columns:
                 1fr 1fr;
 
             gap: 12px;
+
         }
 
-        .rule {
-            background:
-                rgba(255,255,255,.10);
 
-            border:
-                1px solid
-                rgba(255,255,255,.15);
+        .rule {
+
+            background:
+                rgba(255,255,255,.1);
 
             padding: 17px;
 
             border-radius: 10px;
+
         }
 
+
         .rule strong {
+
             display: block;
 
             font-size: 13px;
 
             margin-bottom: 7px;
+
         }
 
+
         .rule span {
+
             font-size: 11px;
 
             color: #dce7ff;
 
-            line-height: 1.5;
         }
 
 
@@ -492,6 +626,7 @@
         ========================= */
 
         footer {
+
             background: #101b32;
 
             color: white;
@@ -499,9 +634,12 @@
             padding: 40px 6%;
 
             margin-top: 60px;
+
         }
 
+
         .footer-content {
+
             max-width: 1100px;
 
             margin: auto;
@@ -510,48 +648,17 @@
 
             justify-content: space-between;
 
-            gap: 30px;
         }
 
+
         .footer-content p {
+
             color: #aeb8cc;
 
             font-size: 12px;
 
             line-height: 1.7;
 
-            margin-top: 8px;
-        }
-
-
-        /* =========================
-           SUCCESS MESSAGE
-        ========================= */
-
-        .success-message {
-            position: fixed;
-
-            top: 90px;
-
-            right: 25px;
-
-            background: #172033;
-
-            color: white;
-
-            padding: 15px 20px;
-
-            border-radius: 9px;
-
-            box-shadow:
-                0 10px 30px
-                rgba(0,0,0,.2);
-
-            display: none;
-
-            z-index: 500;
-
-            font-size: 13px;
         }
 
 
@@ -559,82 +666,80 @@
            RESPONSIVE
         ========================= */
 
-        @media (max-width: 900px) {
+        @media(max-width:900px) {
 
             .search-box {
+
                 grid-template-columns:
                     1fr 1fr;
+
             }
 
             .welcome-box {
+
                 grid-template-columns:
                     1fr;
+
             }
 
             .features {
+
                 grid-template-columns:
                     1fr 1fr;
+
             }
 
-            .pricing {
+            .pricing-box {
+
                 grid-template-columns:
                     1fr;
+
             }
 
         }
 
 
-        @media (max-width: 600px) {
+        @media(max-width:600px) {
 
-            .navbar {
-                padding: 0 20px;
-            }
+            .nav-links a:not(.logout) {
 
-            .nav-links a:not(.logout-btn) {
                 display: none;
-            }
 
-            .hero {
-                min-height: 450px;
             }
 
             .hero h1 {
-                font-size: 38px;
-            }
 
-            .hero p {
-                font-size: 14px;
+                font-size: 38px;
+
             }
 
             .search-box {
+
                 grid-template-columns:
                     1fr;
-            }
 
-            .welcome-box {
-                padding: 25px;
-            }
-
-            .welcome-box h2 {
-                font-size: 27px;
             }
 
             .features {
+
                 grid-template-columns:
                     1fr;
+
             }
 
-            .pricing {
-                padding: 25px;
-            }
+            .rules {
 
-            .pricing-rules {
                 grid-template-columns:
                     1fr;
+
             }
 
             .footer-content {
+
                 flex-direction: column;
+
+                gap: 20px;
+
             }
 
         }
@@ -647,14 +752,14 @@
 <body>
 
 
-    <!-- =========================
-         NAVBAR
-    ========================= -->
+    <!-- NAVBAR -->
 
     <nav class="navbar">
 
         <div class="logo">
+
             Stay<span>Smart</span>
+
         </div>
 
 
@@ -670,7 +775,7 @@
 
             <a
                 href="login.html"
-                class="logout-btn"
+                class="logout"
             >
                 Logout
             </a>
@@ -681,9 +786,7 @@
 
 
 
-    <!-- =========================
-         HERO
-    ========================= -->
+    <!-- HERO -->
 
     <section
         class="hero"
@@ -692,7 +795,7 @@
 
         <div class="hero-content">
 
-            <div class="hero-small">
+            <div class="small-title">
 
                 SMART HOTEL BOOKING PLATFORM
 
@@ -709,10 +812,9 @@
 
             <p>
 
-                A simple hotel booking platform
-                that helps guests discover
-                comfortable stays with
-                intelligent and dynamic pricing.
+                Discover comfortable stays
+                with intelligent pricing and
+                a simple booking experience.
 
             </p>
 
@@ -722,9 +824,7 @@
 
 
 
-    <!-- =========================
-         SEARCH
-    ========================= -->
+    <!-- SEARCH -->
 
     <div class="search-container">
 
@@ -740,6 +840,7 @@
                 <input
                     type="date"
                     id="checkIn"
+                    required
                 >
 
             </div>
@@ -754,6 +855,7 @@
                 <input
                     type="date"
                     id="checkOut"
+                    required
                 >
 
             </div>
@@ -794,7 +896,7 @@
 
             <button
                 class="search-btn"
-                onclick="searchHotel()"
+                onclick="searchRooms()"
             >
 
                 Search
@@ -807,11 +909,9 @@
 
 
 
-    <!-- =========================
-         WELCOME
-    ========================= -->
+    <!-- WELCOME -->
 
-    <section class="welcome-section">
+    <section class="welcome">
 
         <div class="welcome-box">
 
@@ -839,12 +939,10 @@
                     platform designed for
                     independent hotels.
 
-                    Guests can easily search
-                    their preferred dates and
-                    number of guests while the
-                    system provides intelligent
-                    pricing based on demand,
-                    booking timing and weekends.
+                    Guests can search for their
+                    preferred dates and number
+                    of guests while the platform
+                    provides intelligent pricing.
 
                 </p>
 
@@ -860,96 +958,83 @@
 
 
 
-    <!-- =========================
-         FEATURES
-    ========================= -->
+    <!-- FEATURES -->
 
-    <section class="features-section">
-
-        <div class="features">
+    <section class="features">
 
 
-            <div class="feature-card">
+        <div class="feature">
 
-                <div class="feature-icon">
-                    🔎
-                </div>
-
-                <h3>
-                    Easy Search
-                </h3>
-
-                <p>
-
-                    Search for your preferred
-                    dates and number of guests
-                    in just a few clicks.
-
-                </p>
-
+            <div class="icon">
+                🔎
             </div>
 
+            <h3>
+                Easy Search
+            </h3>
 
+            <p>
 
-            <div class="feature-card">
+                Search for your preferred dates
+                and number of guests quickly.
 
-                <div class="feature-icon">
-                    💰
-                </div>
-
-                <h3>
-                    Dynamic Pricing
-                </h3>
-
-                <p>
-
-                    Prices can change based on
-                    demand, weekends and
-                    booking timing.
-
-                </p>
-
-            </div>
-
-
-
-            <div class="feature-card">
-
-                <div class="feature-icon">
-                    ⚡
-                </div>
-
-                <h3>
-                    Simple Experience
-                </h3>
-
-                <p>
-
-                    A clean and simple interface
-                    designed to make hotel
-                    booking easier.
-
-                </p>
-
-            </div>
-
+            </p>
 
         </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                💰
+            </div>
+
+            <h3>
+                Dynamic Pricing
+            </h3>
+
+            <p>
+
+                Pricing can respond to demand,
+                weekends and booking timing.
+
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="icon">
+                ⚡
+            </div>
+
+            <h3>
+                Simple Experience
+            </h3>
+
+            <p>
+
+                A clean and simple interface
+                for hotel guests.
+
+            </p>
+
+        </div>
+
 
     </section>
 
 
 
-    <!-- =========================
-         SMART PRICING
-    ========================= -->
+    <!-- SMART PRICING -->
 
     <section
-        class="pricing-section"
+        class="pricing"
         id="pricing"
     >
 
-        <div class="pricing">
+        <div class="pricing-box">
 
 
             <div>
@@ -973,16 +1058,16 @@
 
                     StaySmart uses a simple
                     dynamic pricing model to
-                    help independent hotels
-                    optimize their room rates
-                    and improve revenue.
+                    adjust room prices based
+                    on demand and booking
+                    conditions.
 
                 </p>
 
             </div>
 
 
-            <div class="pricing-rules">
+            <div class="rules">
 
 
                 <div class="rule">
@@ -992,10 +1077,8 @@
                     </strong>
 
                     <span>
-
-                        Prices can increase when
-                        demand is high.
-
+                        Prices can increase
+                        when demand is high.
                     </span>
 
                 </div>
@@ -1008,10 +1091,8 @@
                     </strong>
 
                     <span>
-
                         Weekend demand can
-                        influence room prices.
-
+                        influence prices.
                     </span>
 
                 </div>
@@ -1024,10 +1105,8 @@
                     </strong>
 
                     <span>
-
-                        Near-date bookings may
-                        have adjusted pricing.
-
+                        Near-date bookings
+                        may have adjusted rates.
                     </span>
 
                 </div>
@@ -1040,10 +1119,8 @@
                     </strong>
 
                     <span>
-
-                        Smart pricing can help
-                        hotels improve revenue.
-
+                        Smart pricing can
+                        improve hotel revenue.
                     </span>
 
                 </div>
@@ -1057,9 +1134,7 @@
 
 
 
-    <!-- =========================
-         FOOTER
-    ========================= -->
+    <!-- FOOTER -->
 
     <footer>
 
@@ -1076,7 +1151,6 @@
                     Stay<span>Smart</span>
 
                 </div>
-
 
                 <p>
 
@@ -1109,30 +1183,14 @@
 
 
 
-    <!-- =========================
-         SUCCESS MESSAGE
-    ========================= -->
-
-    <div
-        class="success-message"
-        id="successMessage"
-    >
-    </div>
-
-
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
-
     <script>
 
 
         /* =========================
-           GET TODAY'S DATE
+           SET DEFAULT DATES
         ========================= */
 
-        function getToday() {
+        function today() {
 
             const date = new Date();
 
@@ -1149,12 +1207,7 @@
         }
 
 
-
-        /* =========================
-           TOMORROW
-        ========================= */
-
-        function getTomorrow() {
+        function tomorrow() {
 
             const date = new Date();
 
@@ -1175,27 +1228,22 @@
         }
 
 
-
-        /* =========================
-           SET DEFAULT DATES
-        ========================= */
-
         document.getElementById(
             "checkIn"
-        ).value = getToday();
+        ).value = today();
 
 
         document.getElementById(
             "checkOut"
-        ).value = getTomorrow();
+        ).value = tomorrow();
 
 
 
         /* =========================
-           SEARCH HOTEL
+           SEARCH → ROOMS PAGE
         ========================= */
 
-        function searchHotel() {
+        function searchRooms() {
 
 
             const checkIn =
@@ -1216,10 +1264,21 @@
                 ).value;
 
 
-            if (!checkIn || !checkOut) {
+            if (!checkIn) {
 
-                showMessage(
-                    "Please select your check-in and check-out dates."
+                alert(
+                    "Please select check-in date."
+                );
+
+                return;
+
+            }
+
+
+            if (!checkOut) {
+
+                alert(
+                    "Please select check-out date."
                 );
 
                 return;
@@ -1233,7 +1292,7 @@
                 new Date(checkIn)
             ) {
 
-                showMessage(
+                alert(
                     "Check-out date must be after check-in date."
                 );
 
@@ -1242,83 +1301,69 @@
             }
 
 
-            showMessage(
+            /*
+                Save search details
+                so rooms.html can use them.
+            */
 
-                "Search submitted for "
-                +
+            localStorage.setItem(
+                "checkIn",
+                checkIn
+            );
+
+
+            localStorage.setItem(
+                "checkOut",
+                checkOut
+            );
+
+
+            localStorage.setItem(
+                "guests",
                 guests
-                +
-                " guest(s)."
-
             );
+
+
+            /*
+                Redirect to room page
+            */
+
+            window.location.href =
+                "rooms.html";
 
         }
 
+        function searchRooms() {
 
+    const checkIn =
+        document.getElementById("checkIn").value;
 
-        /* =========================
-           SHOW MESSAGE
-        ========================= */
+    const checkOut =
+        document.getElementById("checkOut").value;
 
-        function showMessage(message) {
+    const guests =
+        document.getElementById("guests").value;
 
+    if (!checkIn || !checkOut) {
+        alert("Please select your dates.");
+        return;
+    }
 
-            const box =
-                document.getElementById(
-                    "successMessage"
-                );
+    if (new Date(checkOut) <= new Date(checkIn)) {
+        alert("Check-out must be after check-in.");
+        return;
+    }
 
+    localStorage.setItem("checkIn", checkIn);
+    localStorage.setItem("checkOut", checkOut);
+    localStorage.setItem("guests", guests);
 
-            box.textContent =
-                message;
-
-
-            box.style.display =
-                "block";
-
-
-            setTimeout(
-                function () {
-
-                    box.style.display =
-                        "none";
-
-                },
-                3000
-            );
-
-        }
-
-
-
-        /* =========================
-           CHECK-OUT VALIDATION
-        ========================= */
-
-        document
-            .getElementById("checkIn")
-            .addEventListener(
-                "change",
-                function () {
-
-                    const checkIn =
-                        this.value;
-
-
-                    const checkOut =
-                        document.getElementById(
-                            "checkOut"
-                        );
-
-
-                    checkOut.min =
-                        checkIn;
-
-                }
-            );
+    window.location.href = "rooms.html";
+}
 
 
     </script>
+
 
 </body>
 
