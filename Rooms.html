@@ -1612,6 +1612,44 @@
 
         }
 
+        function confirmBooking() {
+
+    const name =
+        document.getElementById("guestName").value.trim();
+
+    const email =
+        document.getElementById("guestEmail").value.trim();
+
+    if (!name) {
+        alert("Please enter guest name.");
+        return;
+    }
+
+    if (!email) {
+        alert("Please enter email.");
+        return;
+    }
+
+    // Save booking details
+    const booking = {
+        guest: name,
+        email: email,
+        room: selectedRoom,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        guests: guests,
+        pricePaid: selectedPrice
+    };
+
+    localStorage.setItem(
+        "booking",
+        JSON.stringify(booking)
+    );
+
+    // Redirect to payment page
+    window.location.href = "payment.html";
+}
+
 
     </script>
 
