@@ -1,0 +1,1251 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>StaySmart - Rooms</title>
+
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: Arial, sans-serif;
+
+        }
+
+
+        body {
+
+            background: #f5f7fb;
+
+            color: #172033;
+
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+
+            height: 72px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #e7eaf0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+
+        .logo {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            color: #172033;
+
+        }
+
+
+        .logo span {
+
+            color: #356ae6;
+
+        }
+
+
+        .nav-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .back-btn {
+
+            text-decoration: none;
+
+            color: #596477;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        .logout {
+
+            text-decoration: none;
+
+            background: #356ae6;
+
+            color: white;
+
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .container {
+
+            max-width: 1400px;
+
+            margin: auto;
+
+            padding: 45px 30px 70px;
+
+        }
+
+
+        .page-label {
+
+            color: #356ae6;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .page-title {
+
+            font-size: 38px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .page-description {
+
+            color: #697386;
+
+            font-size: 16px;
+
+            margin-bottom: 32px;
+
+        }
+
+
+        /* =========================
+           SEARCH SUMMARY
+        ========================= */
+
+        .search-summary {
+
+            background: white;
+
+            border: 1px solid #e7eaf0;
+
+            border-radius: 12px;
+
+            padding: 15px 20px;
+
+            margin-bottom: 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+            flex-wrap: wrap;
+
+            color: #596477;
+
+            font-size: 13px;
+
+        }
+
+
+        .search-summary strong {
+
+            color: #172033;
+
+        }
+
+
+        /* =========================
+           ROOM GRID
+        ========================= */
+
+        .room-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 26px;
+
+        }
+
+
+        /* =========================
+           ROOM CARD
+        ========================= */
+
+        .room-card {
+
+            background: white;
+
+            border-radius: 17px;
+
+            overflow: hidden;
+
+            border:
+                1px solid #e5e8ee;
+
+            box-shadow:
+                0 8px 25px
+                rgba(24,43,80,.08);
+
+            transition: .25s;
+
+        }
+
+
+        .room-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(24,43,80,.13);
+
+        }
+
+
+        /* =========================
+           ROOM IMAGE
+        ========================= */
+
+        .room-image {
+
+            height: 265px;
+
+            background-size: cover;
+
+            background-position: center;
+
+            position: relative;
+
+        }
+
+
+        .deluxe {
+
+            background-image:
+
+                url(
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=85"
+                );
+
+        }
+
+
+        .premium {
+
+            background-image:
+
+                url(
+                    "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=85"
+                );
+
+        }
+
+
+        .family {
+
+            background-image:
+
+                url(
+                    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=85"
+                );
+
+        }
+
+
+        /* =========================
+           AVAILABLE BADGE
+        ========================= */
+
+        .available {
+
+            position: absolute;
+
+            top: 15px;
+
+            right: 15px;
+
+            background: white;
+
+            color: #356ae6;
+
+            padding: 10px 14px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,.12);
+
+        }
+
+
+        /* =========================
+           ROOM CONTENT
+        ========================= */
+
+        .room-content {
+
+            padding: 25px;
+
+        }
+
+
+        .room-content h2 {
+
+            font-size: 25px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .category {
+
+            color: #356ae6;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .description {
+
+            color: #697386;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            min-height: 48px;
+
+        }
+
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .details {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 12px;
+
+            margin: 20px 0;
+
+        }
+
+
+        .detail {
+
+            background: #f5f7fb;
+
+            border-radius: 10px;
+
+            padding: 12px;
+
+        }
+
+
+        .detail span {
+
+            display: block;
+
+            color: #697386;
+
+            font-size: 12px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .detail strong {
+
+            font-size: 16px;
+
+        }
+
+
+        /* =========================
+           AMENITIES
+        ========================= */
+
+        .amenities {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            padding-bottom: 18px;
+
+            border-bottom:
+                1px solid #e6e9ef;
+
+        }
+
+
+        .amenity {
+
+            background: #eef3ff;
+
+            color: #356ae6;
+
+            padding: 7px 10px;
+
+            border-radius: 7px;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =========================
+           ROOM FOOTER
+        ========================= */
+
+        .room-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding-top: 18px;
+
+        }
+
+
+        .price {
+
+            font-size: 27px;
+
+            font-weight: 800;
+
+        }
+
+
+        .price small {
+
+            font-size: 12px;
+
+            font-weight: normal;
+
+            color: #697386;
+
+        }
+
+
+        .book-btn {
+
+            border: none;
+
+            background: #356ae6;
+
+            color: white;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        .book-btn:hover {
+
+            background: #2858c5;
+
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(10,20,40,.65);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 1000;
+
+        }
+
+
+        .modal.hidden {
+
+            display: none;
+
+        }
+
+
+        .modal-box {
+
+            background: white;
+
+            width: 100%;
+
+            max-width: 450px;
+
+            border-radius: 15px;
+
+            padding: 30px;
+
+            position: relative;
+
+        }
+
+
+        .close {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 15px;
+
+            border: none;
+
+            background: #f1f3f7;
+
+            width: 32px;
+
+            height: 32px;
+
+            border-radius: 50%;
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+        }
+
+
+        .modal-box h2 {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .booking-info {
+
+            background: #f5f7fb;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            line-height: 1.8;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            color: #697386;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border:
+                1px solid #dfe3ea;
+
+            border-radius: 8px;
+
+            outline: none;
+
+        }
+
+
+        .confirm {
+
+            width: 100%;
+
+            padding: 13px;
+
+            background: #356ae6;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width:1000px) {
+
+            .room-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+        }
+
+
+        @media(max-width:650px) {
+
+            .navbar {
+
+                padding: 0 20px;
+
+            }
+
+            .back-btn {
+
+                display: none;
+
+            }
+
+            .container {
+
+                padding: 30px 18px;
+
+            }
+
+            .page-title {
+
+                font-size: 30px;
+
+            }
+
+            .room-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+
+        <div class="logo">
+
+            Stay<span>Smart</span>
+
+        </div>
+
+
+        <div class="nav-right">
+
+            <a
+                href="HomePage.html"
+                class="back-btn"
+            >
+                ← Back to Home
+            </a>
+
+
+            <a
+                href="Loginpage.HTML"
+                class="logout"
+            >
+                Logout
+            </a>
+
+        </div>
+
+
+    </nav>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="container">
+
+
+        <div class="page-label">
+
+            ROOM INVENTORY
+
+        </div>
+
+
+        <h1 class="page-title">
+
+            Choose Your Room
+
+        </h1>
+
+
+        <p class="page-description">
+
+            Select from our comfortable
+            and carefully designed
+            room categories.
+
+        </p>
+
+
+
+        <!-- SEARCH INFORMATION -->
+
+        <div class="search-summary">
+
+
+            <div>
+
+                Check-in:
+
+                <strong id="displayCheckIn">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                Check-out:
+
+                <strong id="displayCheckOut">
+                    -
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                Guests:
+
+                <strong id="displayGuests">
+                    -
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ROOM CARDS (populated by JS) -->
+
+        <div class="room-grid" id="roomGrid">
+
+            <!-- Loading state -->
+            <div id="roomsLoading" style="grid-column:1/-1;text-align:center;padding:60px;color:#697386;font-size:16px;">
+                ⏳ Loading rooms...
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         BOOKING MODAL
+    ========================= -->
+
+    <div
+        class="modal hidden"
+        id="bookingModal"
+    >
+
+
+        <div class="modal-box">
+
+
+            <button
+                class="close"
+                onclick="closeBooking()"
+            >
+
+                ×
+
+            </button>
+
+
+            <h2 id="bookingRoom">
+
+                Book Room
+
+            </h2>
+
+
+            <div
+                class="booking-info"
+                id="bookingInfo"
+            >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    GUEST NAME
+                </label>
+
+                <input
+                    type="text"
+                    id="guestName"
+                    placeholder="Enter guest name"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    EMAIL
+                </label>
+
+                <input
+                    type="email"
+                    id="guestEmail"
+                    placeholder="Enter email"
+                >
+
+            </div>
+
+
+            <button
+                class="confirm"
+                id="confirmBtn"
+                onclick="confirmBooking()"
+            >
+
+                Confirm Booking
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        /* =============================================
+           CONSTANTS
+        ============================================= */
+
+        const API_BASE = "http://127.0.0.1:8000/api";
+
+        // Image map for room types
+        const IMAGE_CLASSES = {
+            "deluxe":  "deluxe",
+            "premium": "premium",
+            "family":  "family"
+        };
+
+        // Fallback static rooms if API is unavailable
+        const FALLBACK_ROOMS = [
+            {
+                id: 1,
+                title: "Deluxe Room",
+                room_type: "Deluxe Room",
+                room_number: "101",
+                base_price: 2499,
+                calculated_price: 2499,
+                capacity: 2,
+                total_rooms: 10,
+                amenities: ["Wi-Fi", "AC", "Smart TV", "King Bed"],
+                image_key: "deluxe"
+            },
+            {
+                id: 2,
+                title: "Premium Suite",
+                room_type: "Premium Suite",
+                room_number: "201",
+                base_price: 4499,
+                calculated_price: 4499,
+                capacity: 3,
+                total_rooms: 6,
+                amenities: ["Wi-Fi", "AC", "Breakfast", "King Bed"],
+                image_key: "premium"
+            },
+            {
+                id: 3,
+                title: "Family Suite",
+                room_type: "Family Suite",
+                room_number: "301",
+                base_price: 6999,
+                calculated_price: 6999,
+                capacity: 5,
+                total_rooms: 3,
+                amenities: ["Wi-Fi", "AC", "Living Room", "Breakfast"],
+                image_key: "family"
+            }
+        ];
+
+        /* =============================================
+           GET SEARCH DATA FROM LOCALSTORAGE
+        ============================================= */
+
+        const checkIn  = localStorage.getItem("checkIn");
+        const checkOut = localStorage.getItem("checkOut");
+        const guests   = localStorage.getItem("guests");
+
+        document.getElementById("displayCheckIn").textContent  = checkIn  || "-";
+        document.getElementById("displayCheckOut").textContent = checkOut || "-";
+        document.getElementById("displayGuests").textContent   = guests ? guests + " Guest(s)" : "-";
+
+        /* =============================================
+           SELECTED ROOM STATE
+        ============================================= */
+
+        let selectedRoom  = "";
+        let selectedPrice = 0;
+        let selectedRoomId = null;
+
+        /* =============================================
+           RENDER ROOMS
+        ============================================= */
+
+        function renderRooms(rooms) {
+            const grid = document.getElementById("roomGrid");
+            grid.innerHTML = "";
+
+            if (!rooms || rooms.length === 0) {
+                grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:#697386;">No rooms available.</div>`;
+                return;
+            }
+
+            rooms.forEach(function (r) {
+                const imgClass = IMAGE_CLASSES[r.image_key] || "deluxe";
+                const amenitiesHtml = (r.amenities || []).map(function (a) {
+                    return `<span class="amenity">${a}</span>`;
+                }).join("");
+
+                const priceChanged = r.calculated_price !== r.base_price;
+                const priceLabel = priceChanged
+                    ? `<span style="font-size:12px;color:#697386;text-decoration:line-through;margin-right:6px;">₹${Number(r.base_price).toLocaleString("en-IN")}</span>`
+                    : "";
+
+                const card = document.createElement("div");
+                card.className = "room-card";
+                card.innerHTML = `
+                    <div class="room-image ${imgClass}">
+                        <div class="available">${r.total_rooms} Available</div>
+                    </div>
+                    <div class="room-content">
+                        <h2>${r.title}</h2>
+                        <div class="category">${r.room_type}</div>
+                        <p class="description">Comfortable ${r.room_type.toLowerCase()} accommodation designed for a relaxing stay.</p>
+                        <div class="details">
+                            <div class="detail">
+                                <span>Base Price</span>
+                                <strong>₹${Number(r.base_price).toLocaleString("en-IN")}</strong>
+                            </div>
+                            <div class="detail">
+                                <span>Capacity</span>
+                                <strong>${r.capacity} Guest${r.capacity > 1 ? "s" : ""}</strong>
+                            </div>
+                        </div>
+                        <div class="amenities">${amenitiesHtml}</div>
+                        <div class="room-footer">
+                            <div class="price">
+                                ${priceLabel}₹${Number(r.calculated_price).toLocaleString("en-IN")}
+                                <small>/ night</small>
+                            </div>
+                            <button
+                                class="book-btn"
+                                onclick="openBooking(${r.id}, '${r.title}', ${r.calculated_price}, '${r.room_type}')"
+                            >
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* =============================================
+           FETCH ROOMS FROM API
+        ============================================= */
+
+        function loadRooms() {
+            const url = checkIn
+                ? `${API_BASE}/rooms/?checkIn=${checkIn}`
+                : `${API_BASE}/rooms/`;
+
+            fetch(url)
+                .then(function (res) { return res.json(); })
+                .then(function (data) {
+                    if (data.status === "success" && data.rooms) {
+                        renderRooms(data.rooms);
+                    } else {
+                        renderRooms(FALLBACK_ROOMS);
+                    }
+                })
+                .catch(function (err) {
+                    console.warn("Backend offline, using fallback rooms.", err);
+                    renderRooms(FALLBACK_ROOMS);
+                });
+        }
+
+        // Kick off on page load
+        loadRooms();
+
+        /* =============================================
+           OPEN BOOKING MODAL
+        ============================================= */
+
+        function openBooking(roomId, roomTitle, price, roomType) {
+            selectedRoom   = roomTitle;
+            selectedPrice  = price;
+            selectedRoomId = roomId;
+
+            document.getElementById("bookingRoom").textContent = "Book " + roomTitle;
+            document.getElementById("bookingInfo").innerHTML = `
+                <b>Room:</b> ${roomTitle}<br>
+                <b>Check-in:</b> ${checkIn || "-"}<br>
+                <b>Check-out:</b> ${checkOut || "-"}<br>
+                <b>Guests:</b> ${guests || "-"}<br>
+                <b>Price:</b> ₹${Number(price).toLocaleString("en-IN")} / night
+            `;
+
+            // Pre-fill guest info from localStorage if available
+            const user = JSON.parse(localStorage.getItem("staysmartUser") || "{}");
+            if (user.email) {
+                document.getElementById("guestEmail").value = user.email;
+            }
+
+            document.getElementById("bookingModal").classList.remove("hidden");
+        }
+
+        /* =============================================
+           CLOSE BOOKING MODAL
+        ============================================= */
+
+        function closeBooking() {
+            document.getElementById("bookingModal").classList.add("hidden");
+        }
+
+        /* =============================================
+           CONFIRM BOOKING — POST TO API
+        ============================================= */
+
+        function confirmBooking() {
+            const name  = document.getElementById("guestName").value.trim();
+            const email = document.getElementById("guestEmail").value.trim();
+
+            if (!name) {
+                alert("Please enter guest name.");
+                return;
+            }
+
+            if (!email) {
+                alert("Please enter email.");
+                return;
+            }
+
+            const confirmBtn = document.getElementById("confirmBtn");
+            confirmBtn.textContent = "Confirming...";
+            confirmBtn.disabled = true;
+
+            const bookingPayload = {
+                guestName: name,
+                guestEmail: email,
+                room: selectedRoom,
+                checkIn:  checkIn  || new Date().toISOString().slice(0, 10),
+                checkOut: checkOut || new Date().toISOString().slice(0, 10),
+                guests:   parseInt(guests) || 1,
+                pricePaid: selectedPrice
+            };
+
+            // POST to Django API
+            fetch(`${API_BASE}/bookings/`, {
+                method:  "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bookingPayload)
+            })
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+                const bookingId = (data.booking && data.booking.id) ? data.booking.id : "BK-" + Math.floor(1000 + Math.random() * 9000);
+                saveAndRedirect(name, email, bookingId);
+            })
+            .catch(function (err) {
+                console.warn("Backend offline, saving booking locally.", err);
+                // Fallback: generate local booking id
+                const localId = "BK-" + Math.floor(1000 + Math.random() * 9000);
+                saveAndRedirect(name, email, localId);
+            });
+        }
+
+        function saveAndRedirect(name, email, bookingId) {
+            // Save to localStorage for Payment.html summary
+            const booking = {
+                bookingId: bookingId,
+                guest:     name,
+                email:     email,
+                room:      selectedRoom,
+                checkIn:   checkIn,
+                checkOut:  checkOut,
+                guests:    guests,
+                pricePaid: selectedPrice
+            };
+            localStorage.setItem("booking", JSON.stringify(booking));
+
+            closeBooking();
+
+            // Redirect to payment page
+            window.location.href = "Payment.html";
+        }
+
+    </script>
+
+
+</body>
+
+</html>

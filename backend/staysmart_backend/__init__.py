@@ -1,0 +1,1 @@
+# StaySmart Django Backend Package
