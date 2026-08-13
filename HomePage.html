@@ -1,0 +1,2573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StaySmart | Smart Hotel Booking</title>
+
+    <style>
+
+        /* ========================================
+           RESET
+        ======================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* ========================================
+           NAVBAR
+        ======================================== */
+
+        .navbar {
+
+            height: 72px;
+
+            background: white;
+
+            border-bottom: 1px solid #e7eaf0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+        .logo {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            color: #172033;
+
+        }
+
+        .logo span {
+
+            color: #356ae6;
+
+        }
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+
+        }
+
+        .nav-links a {
+
+            text-decoration: none;
+
+            color: #596477;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+        }
+
+        .nav-links a:hover {
+
+            color: #356ae6;
+
+        }
+
+        .login-btn {
+
+            background: #356ae6;
+
+            color: white !important;
+
+            padding: 10px 18px;
+
+            border-radius: 8px;
+
+        }
+
+
+        /* ========================================
+           HERO SECTION
+        ======================================== */
+
+        .hero {
+
+            min-height: 520px;
+
+            background:
+
+                linear-gradient(
+                    rgba(23, 54, 109, 0.78),
+                    rgba(53, 106, 230, 0.62)
+                ),
+
+                url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1800&q=85");
+
+            background-size: cover;
+
+            background-position: center;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            color: white;
+
+            padding: 40px 20px;
+
+        }
+
+        .hero-content {
+
+            max-width: 850px;
+
+        }
+
+        .hero-small {
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            color: #c9dbff;
+
+            margin-bottom: 15px;
+
+        }
+
+        .hero h1 {
+
+            font-size: 56px;
+
+            line-height: 1.05;
+
+            margin-bottom: 20px;
+
+        }
+
+        .hero p {
+
+            font-size: 17px;
+
+            line-height: 1.7;
+
+            color: #e1eaff;
+
+        }
+
+
+        /* ========================================
+           SEARCH BOX
+        ======================================== */
+
+        .search-container {
+
+            max-width: 1100px;
+
+            margin: -45px auto 50px;
+
+            padding: 0 20px;
+
+            position: relative;
+
+            z-index: 10;
+
+        }
+
+        .search-box {
+
+            background: white;
+
+            border-radius: 15px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 15px 45px
+                rgba(24, 43, 80, 0.15);
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr
+                .7fr
+                auto;
+
+            gap: 12px;
+
+        }
+
+        .field {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+
+        }
+
+        .field label {
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            color: #697386;
+
+        }
+
+        .field input,
+        .field select {
+
+            padding: 12px;
+
+            border: 1px solid #dfe3ea;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            background: white;
+
+        }
+
+        .field input:focus,
+        .field select:focus {
+
+            border-color: #356ae6;
+
+        }
+
+        .primary-btn {
+
+            border: none;
+
+            background: #356ae6;
+
+            color: white;
+
+            border-radius: 8px;
+
+            padding: 12px 20px;
+
+            font-weight: 700;
+
+            margin-top: 21px;
+
+        }
+
+        .primary-btn:hover {
+
+            background: #2858c5;
+
+        }
+
+
+        /* ========================================
+           GENERAL SECTION
+        ======================================== */
+
+        .section {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            padding: 20px;
+
+        }
+
+        .section-title {
+
+            margin-bottom: 25px;
+
+        }
+
+        .section-label {
+
+            color: #356ae6;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+        }
+
+        .section-title h2 {
+
+            font-size: 31px;
+
+            margin-top: 7px;
+
+        }
+
+        .section-title p {
+
+            color: #7b8494;
+
+            font-size: 14px;
+
+            margin-top: 7px;
+
+        }
+
+
+        /* ========================================
+           ROOM GRID
+        ======================================== */
+
+        .room-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        /* ========================================
+           ROOM CARD
+        ======================================== */
+
+        .room-card {
+
+            background: white;
+
+            border: 1px solid #e7eaf0;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px
+                rgba(24, 43, 80, 0.07);
+
+            transition: 0.25s;
+
+        }
+
+        .room-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(24, 43, 80, 0.13);
+
+        }
+
+
+        /* ========================================
+           ROOM IMAGE
+        ======================================== */
+
+        .room-image {
+
+            height: 210px;
+
+            background-size: cover;
+
+            background-position: center;
+
+            position: relative;
+
+        }
+
+        .deluxe {
+
+            background-image:
+
+                url(
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=80"
+                );
+
+        }
+
+        .premium {
+
+            background-image:
+
+                url(
+                    "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80"
+                );
+
+        }
+
+        .family {
+
+            background-image:
+
+                url(
+                    "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=80"
+                );
+
+        }
+
+        .available-badge {
+
+            position: absolute;
+
+            top: 12px;
+
+            right: 12px;
+
+            background: white;
+
+            color: #356ae6;
+
+            padding: 7px 10px;
+
+            border-radius: 7px;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+        }
+
+
+        /* ========================================
+           ROOM CONTENT
+        ======================================== */
+
+        .room-content {
+
+            padding: 20px;
+
+        }
+
+        .room-content h3 {
+
+            font-size: 20px;
+
+            margin-bottom: 5px;
+
+        }
+
+        .category {
+
+            color: #356ae6;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+        }
+
+        .room-description {
+
+            color: #7b8494;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            margin-top: 8px;
+
+        }
+
+
+        /* ========================================
+           ROOM DETAILS
+        ======================================== */
+
+        .room-details {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+            margin: 15px 0;
+
+        }
+
+        .detail {
+
+            background: #f5f7fb;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            font-size: 11px;
+
+            color: #697386;
+
+        }
+
+        .detail strong {
+
+            display: block;
+
+            color: #172033;
+
+            font-size: 14px;
+
+            margin-top: 4px;
+
+        }
+
+
+        /* ========================================
+           AMENITIES
+        ======================================== */
+
+        .amenities {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 6px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .amenity {
+
+            background: #eef3ff;
+
+            color: #356ae6;
+
+            padding: 6px 8px;
+
+            border-radius: 6px;
+
+            font-size: 10px;
+
+        }
+
+
+        /* ========================================
+           ROOM FOOTER
+        ======================================== */
+
+        .room-footer {
+
+            border-top: 1px solid #edf0f4;
+
+            padding-top: 15px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+        .price {
+
+            font-size: 21px;
+
+            font-weight: 800;
+
+        }
+
+        .price small {
+
+            font-size: 10px;
+
+            color: #7b8494;
+
+            font-weight: normal;
+
+        }
+
+        .book-btn {
+
+            background: #356ae6;
+
+            border: none;
+
+            color: white;
+
+            padding: 10px 15px;
+
+            border-radius: 7px;
+
+            font-weight: 700;
+
+        }
+
+        .book-btn:hover {
+
+            background: #2858c5;
+
+        }
+
+
+        /* ========================================
+           DYNAMIC PRICING
+        ======================================== */
+
+        .pricing {
+
+            margin-top: 40px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #17366d,
+                    #356ae6
+                );
+
+            color: white;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 30px;
+
+        }
+
+        .pricing h2 {
+
+            font-size: 30px;
+
+            margin: 8px 0 12px;
+
+        }
+
+        .pricing p {
+
+            color: #dce7ff;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+        }
+
+        .pricing-rules {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+        }
+
+        .rule {
+
+            background:
+                rgba(255, 255, 255, 0.1);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+        }
+
+        .rule strong {
+
+            display: block;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+
+        }
+
+        .rule span {
+
+            font-size: 11px;
+
+            color: #dce7ff;
+
+        }
+
+
+        /* ========================================
+           BOOKING MODAL
+        ======================================== */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background:
+                rgba(13, 23, 43, 0.7);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 1000;
+
+        }
+
+        .modal-box {
+
+            background: white;
+
+            width: 100%;
+
+            max-width: 500px;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            position: relative;
+
+        }
+
+        .close {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 15px;
+
+            border: none;
+
+            background: #f1f3f7;
+
+            width: 30px;
+
+            height: 30px;
+
+            border-radius: 50%;
+
+            font-size: 18px;
+
+        }
+
+        .modal-box h2 {
+
+            margin: 8px 0 20px;
+
+        }
+
+        .form-group {
+
+            margin-bottom: 14px;
+
+        }
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            color: #697386;
+
+            margin-bottom: 6px;
+
+        }
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #dfe3ea;
+
+            border-radius: 8px;
+
+            outline: none;
+
+        }
+
+        .booking-summary {
+
+            background: #f5f7fb;
+
+            border-radius: 9px;
+
+            padding: 14px;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+            margin-bottom: 15px;
+
+        }
+
+        .confirm-btn {
+
+            width: 100%;
+
+            background: #356ae6;
+
+            color: white;
+
+            border: none;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            font-weight: 700;
+
+        }
+
+        .confirm-btn:hover {
+
+            background: #2858c5;
+
+        }
+
+        .hidden {
+
+            display: none !important;
+
+        }
+
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+
+        footer {
+
+            background: #101b32;
+
+            color: white;
+
+            padding: 40px 6%;
+
+            margin-top: 60px;
+
+        }
+
+        .footer-content {
+
+            max-width: 1150px;
+
+            margin: auto;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 30px;
+
+        }
+
+        .footer-content p {
+
+            color: #aeb8cc;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+            margin-top: 8px;
+
+        }
+
+
+        /* ========================================
+           MOBILE
+        ======================================== */
+
+        @media(max-width: 900px) {
+
+            .search-box {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+            .room-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+            .pricing {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            .nav-links a:not(.login-btn) {
+
+                display: none;
+
+            }
+
+            .hero h1 {
+
+                font-size: 38px;
+
+            }
+
+            .search-box {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .room-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .pricing-rules {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .footer-content {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ==========================================
+     NAVBAR
+=========================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        Stay<span>Smart</span>
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="#rooms">
+            Rooms
+        </a>
+
+        <a href="#pricing">
+            Pricing
+        </a>
+
+        <a
+            href="login.html"
+            class="login-btn"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ==========================================
+     HERO
+=========================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="hero-small">
+
+            SMART HOTEL BOOKING PLATFORM
+
+        </div>
+
+
+        <h1>
+
+            Find the right room
+            at the right price.
+
+        </h1>
+
+
+        <p>
+
+            Discover comfortable rooms with
+            smart pricing and a simple booking
+            experience.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     SEARCH
+=========================================== -->
+
+<div class="search-container">
+
+    <div class="search-box">
+
+
+        <!-- CHECK IN -->
+
+        <div class="field">
+
+            <label>
+                CHECK-IN
+            </label>
+
+            <input
+                type="date"
+                id="checkIn"
+            >
+
+        </div>
+
+
+        <!-- CHECK OUT -->
+
+        <div class="field">
+
+            <label>
+                CHECK-OUT
+            </label>
+
+            <input
+                type="date"
+                id="checkOut"
+            >
+
+        </div>
+
+
+        <!-- GUESTS -->
+
+        <div class="field">
+
+            <label>
+                GUESTS
+            </label>
+
+            <select id="guests">
+
+                <option value="1">
+                    1 Guest
+                </option>
+
+                <option value="2">
+                    2 Guests
+                </option>
+
+                <option value="3">
+                    3 Guests
+                </option>
+
+                <option value="4">
+                    4 Guests
+                </option>
+
+                <option value="5">
+                    5 Guests
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- SEARCH BUTTON -->
+
+        <button
+            class="primary-btn"
+            onclick="searchRooms()"
+        >
+
+            Search Rooms
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ==========================================
+     ROOM TYPES
+=========================================== -->
+
+<section
+    class="section"
+    id="rooms"
+>
+
+
+    <div class="section-title">
+
+        <div class="section-label">
+
+            ROOM INVENTORY
+
+        </div>
+
+
+        <h2>
+
+            Choose Your Room
+
+        </h2>
+
+
+        <p>
+
+            Select from our comfortable and
+            carefully designed room categories.
+
+        </p>
+
+    </div>
+
+
+    <div
+        class="room-grid"
+        id="roomGrid"
+    >
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ==========================================
+     DYNAMIC PRICING
+=========================================== -->
+
+<section
+    class="section"
+    id="pricing"
+>
+
+
+    <div class="pricing">
+
+
+        <div>
+
+            <div
+                class="section-label"
+                style="color:#b9cbff"
+            >
+
+                SMART PRICING
+
+            </div>
+
+
+            <h2>
+
+                Prices that respond
+                to demand.
+
+            </h2>
+
+
+            <p>
+
+                StaySmart uses a simple dynamic
+                pricing model to adjust room
+                prices based on demand, weekends
+                and booking timing.
+
+            </p>
+
+        </div>
+
+
+        <div class="pricing-rules">
+
+
+            <div class="rule">
+
+                <strong>
+                    📈 High Demand
+                </strong>
+
+                <span>
+
+                    Prices can increase when
+                    demand is high.
+
+                </span>
+
+            </div>
+
+
+            <div class="rule">
+
+                <strong>
+                    📅 Weekend
+                </strong>
+
+                <span>
+
+                    Weekend demand can affect
+                    the room price.
+
+                </span>
+
+            </div>
+
+
+            <div class="rule">
+
+                <strong>
+                    ⏱ Last Minute
+                </strong>
+
+                <span>
+
+                    Near-date bookings may have
+                    a higher price.
+
+                </span>
+
+            </div>
+
+
+            <div class="rule">
+
+                <strong>
+                    💰 Better Revenue
+                </strong>
+
+                <span>
+
+                    Smart pricing helps improve
+                    hotel revenue.
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     BOOKING MODAL
+=========================================== -->
+
+<div
+    class="modal hidden"
+    id="bookingModal"
+>
+
+
+    <div class="modal-box">
+
+
+        <!-- CLOSE -->
+
+        <button
+            class="close"
+            onclick="closeBooking()"
+        >
+
+            ×
+
+        </button>
+
+
+        <div class="section-label">
+
+            BOOK YOUR ROOM
+
+        </div>
+
+
+        <h2 id="modalRoom">
+
+            Room
+
+        </h2>
+
+
+        <!-- BOOKING SUMMARY -->
+
+        <div
+            class="booking-summary"
+            id="bookingSummary"
+        >
+
+        </div>
+
+
+        <!-- GUEST NAME -->
+
+        <div class="form-group">
+
+            <label>
+                GUEST NAME
+            </label>
+
+            <input
+                id="guestName"
+                type="text"
+                placeholder="Enter guest name"
+            >
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group">
+
+            <label>
+                GUEST EMAIL
+            </label>
+
+            <input
+                id="guestEmail"
+                type="email"
+                placeholder="guest@example.com"
+            >
+
+        </div>
+
+
+        <!-- CONFIRM -->
+
+        <button
+            class="confirm-btn"
+            onclick="confirmBooking()"
+        >
+
+            Confirm Booking
+
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- ==========================================
+     FOOTER
+=========================================== -->
+
+<footer>
+
+    <div class="footer-content">
+
+
+        <div>
+
+            <div
+                class="logo"
+                style="color:white"
+            >
+
+                Stay<span>Smart</span>
+
+            </div>
+
+
+            <p>
+
+                Smart hotel booking and
+                dynamic pricing platform.
+
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <p>
+
+                © 2026 StaySmart
+
+                <br>
+
+                Hackathon Project
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+
+/* ============================================
+   ROOM DATA
+============================================ */
+
+const rooms = [
+
+    {
+
+        id: 1,
+
+        type: "Deluxe Room",
+
+        category: "Deluxe",
+
+        basePrice: 2800,
+
+        capacity: 2,
+
+        totalRooms: 10,
+
+        amenities: [
+
+            "Wi-Fi",
+
+            "AC",
+
+            "Smart TV",
+
+            "King Bed"
+
+        ],
+
+        image: "deluxe"
+
+    },
+
+
+    {
+
+        id: 2,
+
+        type: "Premium Room",
+
+        category: "Premium",
+
+        basePrice: 4200,
+
+        capacity: 3,
+
+        totalRooms: 6,
+
+        amenities: [
+
+            "Wi-Fi",
+
+            "AC",
+
+            "Breakfast",
+
+            "King Bed"
+
+        ],
+
+        image: "premium"
+
+    },
+
+
+    {
+
+        id: 3,
+
+        type: "Family Suite",
+
+        category: "Suite",
+
+        basePrice: 6500,
+
+        capacity: 5,
+
+        totalRooms: 3,
+
+        amenities: [
+
+            "Wi-Fi",
+
+            "AC",
+
+            "Living Room",
+
+            "Breakfast"
+
+        ],
+
+        image: "family"
+
+    }
+
+];
+
+
+
+/* ============================================
+   SELECTED ROOM
+============================================ */
+
+let selectedRoom = null;
+
+
+
+/* ============================================
+   TODAY
+============================================ */
+
+function today() {
+
+    const date = new Date();
+
+    date.setMinutes(
+
+        date.getMinutes()
+        -
+        date.getTimezoneOffset()
+
+    );
+
+    return date
+        .toISOString()
+        .slice(0, 10);
+
+}
+
+
+
+/* ============================================
+   ADD DAYS
+============================================ */
+
+function addDays(
+    dateString,
+    number
+) {
+
+    const date = new Date(
+
+        dateString
+        +
+        "T00:00:00"
+
+    );
+
+    date.setDate(
+
+        date.getDate()
+        +
+        number
+
+    );
+
+    return date
+        .toISOString()
+        .slice(0, 10);
+
+}
+
+
+
+/* ============================================
+   NIGHT CALCULATION
+============================================ */
+
+function nightsBetween(
+    start,
+    end
+) {
+
+    return Math.max(
+
+        1,
+
+        Math.ceil(
+
+            (
+                new Date(end)
+                -
+                new Date(start)
+            )
+            /
+            86400000
+
+        )
+
+    );
+
+}
+
+
+
+/* ============================================
+   FORMAT PRICE
+============================================ */
+
+function formatPrice(price) {
+
+    return (
+
+        "₹"
+        +
+        price.toLocaleString(
+            "en-IN"
+        )
+
+    );
+
+}
+
+
+
+/* ============================================
+   DYNAMIC PRICE
+============================================ */
+
+function dynamicPrice(
+    room,
+    checkIn
+) {
+
+    let price =
+        room.basePrice;
+
+
+    /*
+       WEEKEND PRICE
+    */
+
+    const day =
+        new Date(
+
+            checkIn
+            +
+            "T00:00:00"
+
+        ).getDay();
+
+
+    if (
+        day === 0
+        ||
+        day === 6
+    ) {
+
+        price *= 1.15;
+
+    }
+
+
+    /*
+       LAST MINUTE PRICE
+    */
+
+    const leadTime =
+
+        Math.ceil(
+
+            (
+                new Date(checkIn)
+                -
+                new Date()
+            )
+            /
+            86400000
+
+        );
+
+
+    if (
+        leadTime <= 2
+    ) {
+
+        price *= 1.10;
+
+    }
+
+
+    return Math.round(price);
+
+}
+
+
+
+/* ============================================
+   RENDER ROOMS
+============================================ */
+
+function renderRooms() {
+
+
+    const checkIn =
+
+        document.getElementById(
+            "checkIn"
+        ).value
+        ||
+        today();
+
+
+    const container =
+
+        document.getElementById(
+            "roomGrid"
+        );
+
+
+    container.innerHTML =
+
+        rooms.map(
+
+            room => {
+
+
+                const price =
+
+                    dynamicPrice(
+
+                        room,
+
+                        checkIn
+
+                    );
+
+
+                return `
+
+                <div class="room-card">
+
+
+                    <!-- ROOM IMAGE -->
+
+                    <div
+                        class="
+                        room-image
+                        ${room.image}
+                        "
+                    >
+
+                        <div
+                            class="
+                            available-badge
+                            "
+                        >
+
+                            ${room.totalRooms}
+                            Available
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ROOM INFORMATION -->
+
+                    <div
+                        class="room-content"
+                    >
+
+
+                        <h3>
+
+                            ${room.type}
+
+                        </h3>
+
+
+                        <div
+                            class="category"
+                        >
+
+                            ${room.category}
+
+                        </div>
+
+
+                        <p
+                            class="
+                            room-description
+                            "
+                        >
+
+                            Comfortable
+                            ${room.category.toLowerCase()}
+                            accommodation
+                            designed for a
+                            relaxing stay.
+
+                        </p>
+
+
+                        <!-- DETAILS -->
+
+                        <div
+                            class="room-details"
+                        >
+
+
+                            <div
+                                class="detail"
+                            >
+
+                                Base Price
+
+                                <strong>
+
+                                    ${formatPrice(
+                                        room.basePrice
+                                    )}
+
+                                </strong>
+
+                            </div>
+
+
+                            <div
+                                class="detail"
+                            >
+
+                                Capacity
+
+                                <strong>
+
+                                    ${room.capacity}
+                                    Guests
+
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- AMENITIES -->
+
+                        <div
+                            class="amenities"
+                        >
+
+                            ${
+
+                                room.amenities
+                                .map(
+
+                                    amenity => `
+
+                                    <span
+                                        class="
+                                        amenity
+                                        "
+                                    >
+
+                                        ${amenity}
+
+                                    </span>
+
+                                    `
+
+                                )
+                                .join("")
+
+                            }
+
+                        </div>
+
+
+                        <!-- FOOTER -->
+
+                        <div
+                            class="room-footer"
+                        >
+
+
+                            <div>
+
+                                <div
+                                    class="price"
+                                >
+
+                                    ${formatPrice(
+                                        price
+                                    )}
+
+                                    <small>
+                                        / night
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="book-btn"
+                                onclick="
+                                openBooking(
+                                    ${room.id}
+                                )
+                                "
+                            >
+
+                                Book Now
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }
+
+        ).join("");
+
+}
+
+
+
+/* ============================================
+   SEARCH ROOMS
+============================================ */
+
+function searchRooms() {
+
+
+    const checkIn =
+
+        document.getElementById(
+            "checkIn"
+        ).value;
+
+
+    const checkOut =
+
+        document.getElementById(
+            "checkOut"
+        ).value;
+
+
+    if (!checkIn || !checkOut) {
+
+        alert(
+            "Please select check-in and check-out dates."
+        );
+
+        return;
+
+    }
+
+
+    if (
+
+        new Date(checkOut)
+        <=
+        new Date(checkIn)
+
+    ) {
+
+        alert(
+            "Check-out date must be after check-in date."
+        );
+
+        return;
+
+    }
+
+
+    renderRooms();
+
+
+    document
+        .getElementById("rooms")
+        .scrollIntoView({
+
+            behavior: "smooth"
+
+        });
+
+}
+
+
+
+/* ============================================
+   OPEN BOOKING MODAL
+============================================ */
+
+function openBooking(roomId) {
+
+
+    selectedRoom =
+
+        rooms.find(
+
+            room =>
+                room.id === roomId
+
+        );
+
+
+    const checkIn =
+
+        document.getElementById(
+            "checkIn"
+        ).value;
+
+
+    const checkOut =
+
+        document.getElementById(
+            "checkOut"
+        ).value;
+
+
+    const guests =
+
+        Number(
+
+            document.getElementById(
+                "guests"
+            ).value
+
+        );
+
+
+    /*
+       CHECK DATES
+    */
+
+    if (!checkIn || !checkOut) {
+
+        alert(
+            "Please select check-in and check-out dates first."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       CHECK GUEST CAPACITY
+    */
+
+    if (
+        guests >
+        selectedRoom.capacity
+    ) {
+
+        alert(
+
+            "This room can accommodate only "
+            +
+            selectedRoom.capacity
+            +
+            " guests."
+
+        );
+
+        return;
+
+    }
+
+
+    /*
+       NIGHTS
+    */
+
+    const nights =
+
+        nightsBetween(
+
+            checkIn,
+
+            checkOut
+
+        );
+
+
+    /*
+       PRICE
+    */
+
+    const price =
+
+        dynamicPrice(
+
+            selectedRoom,
+
+            checkIn
+
+        );
+
+
+    const total =
+
+        price * nights;
+
+
+    /*
+       MODAL TITLE
+    */
+
+    document.getElementById(
+        "modalRoom"
+    ).textContent =
+
+        selectedRoom.type;
+
+
+    /*
+       BOOKING SUMMARY
+    */
+
+    document.getElementById(
+        "bookingSummary"
+    ).innerHTML = `
+
+        <b>Room:</b>
+        ${selectedRoom.type}
+
+        <br>
+
+        <b>Category:</b>
+        ${selectedRoom.category}
+
+        <br>
+
+        <b>Guests:</b>
+        ${guests}
+
+        <br>
+
+        <b>Check-in:</b>
+        ${checkIn}
+
+        <br>
+
+        <b>Check-out:</b>
+        ${checkOut}
+
+        <br>
+
+        <b>Nights:</b>
+        ${nights}
+
+        <br>
+
+        <b>Price / Night:</b>
+        ${formatPrice(price)}
+
+        <br>
+
+        <b>Total Price:</b>
+        <strong>
+            ${formatPrice(total)}
+        </strong>
+
+    `;
+
+
+    /*
+       SHOW MODAL
+    */
+
+    document
+        .getElementById(
+            "bookingModal"
+        )
+        .classList
+        .remove("hidden");
+
+}
+
+
+
+/* ============================================
+   CLOSE BOOKING
+============================================ */
+
+function closeBooking() {
+
+    document
+        .getElementById(
+            "bookingModal"
+        )
+        .classList
+        .add("hidden");
+
+}
+
+
+
+/* ============================================
+   CONFIRM BOOKING
+============================================ */
+
+function confirmBooking() {
+
+
+    const name =
+
+        document.getElementById(
+            "guestName"
+        ).value.trim();
+
+
+    const email =
+
+        document.getElementById(
+            "guestEmail"
+        ).value.trim();
+
+
+    if (!name) {
+
+        alert(
+            "Please enter guest name."
+        );
+
+        return;
+
+    }
+
+
+    if (!email) {
+
+        alert(
+            "Please enter guest email."
+        );
+
+        return;
+
+    }
+
+
+    const checkIn =
+
+        document.getElementById(
+            "checkIn"
+        ).value;
+
+
+    const checkOut =
+
+        document.getElementById(
+            "checkOut"
+        ).value;
+
+
+    const guests =
+
+        Number(
+
+            document.getElementById(
+                "guests"
+            ).value
+
+        );
+
+
+    const nights =
+
+        nightsBetween(
+
+            checkIn,
+
+            checkOut
+
+        );
+
+
+    const price =
+
+        dynamicPrice(
+
+            selectedRoom,
+
+            checkIn
+
+        );
+
+
+    const total =
+
+        price * nights;
+
+
+    /*
+       DEMO BOOKING OBJECT
+    */
+
+    const booking = {
+
+        guestName: name,
+
+        guestEmail: email,
+
+        room: selectedRoom.type,
+
+        category: selectedRoom.category,
+
+        guests: guests,
+
+        checkIn: checkIn,
+
+        checkOut: checkOut,
+
+        pricePaid: total,
+
+        status: "Confirmed"
+
+    };
+
+
+    /*
+       SAVE TO LOCAL STORAGE
+    */
+
+    localStorage.setItem(
+
+        "latestBooking",
+
+        JSON.stringify(booking)
+
+    );
+
+
+    /*
+       CLOSE MODAL
+    */
+
+    closeBooking();
+
+
+    /*
+       CLEAR FORM
+    */
+
+    document.getElementById(
+        "guestName"
+    ).value = "";
+
+
+    document.getElementById(
+        "guestEmail"
+    ).value = "";
+
+
+    /*
+       SUCCESS MESSAGE
+    */
+
+    alert(
+
+        "Booking confirmed successfully!\n\n"
+        +
+        "Guest: "
+        +
+        name
+        +
+        "\nRoom: "
+        +
+        selectedRoom.type
+        +
+        "\nTotal: "
+        +
+        formatPrice(total)
+
+    );
+
+}
+
+
+
+/* ============================================
+   INITIALIZE PAGE
+============================================ */
+
+function initialize() {
+
+
+    /*
+       DEFAULT CHECK-IN
+    */
+
+    document.getElementById(
+        "checkIn"
+    ).value = today();
+
+
+    /*
+       DEFAULT CHECK-OUT
+    */
+
+    document.getElementById(
+        "checkOut"
+    ).value =
+
+        addDays(
+            today(),
+            1
+        );
+
+
+    /*
+       DISPLAY ROOMS
+    */
+
+    renderRooms();
+
+}
+
+
+
+/* ============================================
+   UPDATE PRICE WHEN DATE CHANGES
+============================================ */
+
+document
+    .getElementById(
+        "checkIn"
+    )
+    .addEventListener(
+
+        "change",
+
+        renderRooms
+
+    );
+
+
+
+/* ============================================
+   START APPLICATION
+============================================ */
+
+initialize();
+
+</script>
+
+
+</body>
+
+</html>
