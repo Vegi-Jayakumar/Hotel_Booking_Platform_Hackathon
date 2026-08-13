@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaySmart · Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+        body { min-height: 100vh; display: flex; align-items: center; justify-content: center;
+               background: linear-gradient(135deg, #17366d, #356ae6); color: #fff; padding: 20px; }
+        .card { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px);
+                border: 1px solid rgba(255,255,255,0.18); border-radius: 18px;
+                padding: 44px 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .brand { text-align: center; margin-bottom: 28px; }
+        .brand h1 { font-size: 34px; letter-spacing: .5px; }
+        .brand h1 span { color: #9fc0ff; }
+        .brand p { color: #cfe0ff; font-size: 13px; margin-top: 6px; }
+        label { display: block; font-size: 13px; color: #cfe0ff; margin: 16px 0 6px; }
+        input { width: 100%; padding: 13px 15px; border-radius: 10px; border: none;
+                background: rgba(255,255,255,0.92); font-size: 15px; color: #17366d; outline: none; }
+        input:focus { box-shadow: 0 0 0 3px rgba(159,192,255,0.6); }
+        button { width: 100%; margin-top: 26px; padding: 14px; border: none; border-radius: 10px;
+                 background: #fff; color: #17366d; font-size: 16px; font-weight: 700; cursor: pointer;
+                 transition: transform .12s ease, box-shadow .12s ease; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,0.25); }
+        button:disabled { opacity: .6; cursor: wait; transform: none; }
+        .msg { margin-top: 18px; text-align: center; font-size: 14px; min-height: 20px; }
+        .err { color: #ffb3b3; }
+        .ok { color: #b6f5c8; }
+        .hint { margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.18); padding-top: 18px;
+                font-size: 12px; color: #aecbff; line-height: 1.7; }
+        .hint b { color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="brand">
+            <h1>Stay<span>Smart</span></h1>
+            <p>Smart hotel booking & management</p>
+        </div>
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required autocomplete="username">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+            <button type="submit" id="loginBtn">Sign In</button>
+        </form>
+        <div class="msg" id="msg"></div>
+        <div class="hint">
+            <b>Demo accounts</b><br>
+            Admin &mdash; admin@staysmart.com / admin123<br>
+            Guest &mdash; guest@example.com / guest123
+        </div>
+    </div>
+
+    <script>
+        const API = "https://axujjglrqnppgzoocrng.supabase.co/functions/v1/staysmart-api/api";
+
+        // If already logged in, skip ahead to the right page.
+        (function () {
+            const role = localStorage.getItem("ss_role");
+            const email = localStorage.getItem("ss_email");
+            if (role && email) {
+                location.href = role === "admin" ? "AdminHomePage.HTML" : "HomePage.html";
+            }
+        })();
+
+        const form = document.getElementById("loginForm");
+        const btn = document.getElementById("loginBtn");
+        const msg = document.getElementById("msg");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+
+            btn.disabled = true;
+            msg.textContent = "Signing in…";
+            msg.className = "msg";
+
+            try {
+                const res = await fetch(`${API}/login/`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password }),
+                });
+                const data = await res.json();
+
+                if (res.ok && data.status === "success") {
+                    localStorage.setItem("ss_role", data.role);
+                    localStorage.setItem("ss_email", data.email);
+                    msg.textContent = "Welcome back! Redirecting…";
+                    msg.className = "msg ok";
+                    setTimeout(() => {
+                        location.href = data.role === "admin" ? "AdminHomePage.HTML" : "HomePage.html";
+                    }, 600);
+                } else {
+                    msg.textContent = data.message || "Invalid email or password.";
+                    msg.className = "msg err";
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                msg.textContent = "Network error. Please try again.";
+                msg.className = "msg err";
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

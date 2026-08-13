@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaySmart · Payment</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+        body { background: #f4f7ff; color: #17366d; }
+        nav { background: linear-gradient(135deg, #17366d, #356ae6); color: #fff;
+              display: flex; align-items: center; justify-content: space-between;
+              padding: 16px 40px; box-shadow: 0 4px 18px rgba(23,54,109,0.25); }
+        nav .logo { font-size: 24px; font-weight: 800; }
+        nav .logo span { color: #9fc0ff; }
+        nav .links a { color: #dce7ff; text-decoration: none; margin-left: 26px; font-size: 15px; }
+        nav .links a:hover { color: #fff; }
+        nav .user button { padding: 7px 16px; border-radius: 8px; border: 1px solid #9fc0ff;
+                           background: transparent; color: #fff; cursor: pointer; font-size: 13px; }
+
+        .wrap { max-width: 920px; margin: 0 auto; padding: 50px 24px; }
+        h1 { font-size: 30px; margin-bottom: 6px; }
+        .sub { color: #5b7bbf; font-size: 15px; margin-bottom: 34px; }
+
+        .layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; align-items: start; }
+        @media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
+
+        .panel { background: #fff; border-radius: 16px; padding: 30px; box-shadow: 0 8px 24px rgba(23,54,109,0.1); }
+        .panel h2 { font-size: 20px; margin-bottom: 20px; }
+
+        .summary { display: flex; gap: 18px; margin-bottom: 22px; }
+        .summary img { width: 130px; height: 90px; object-fit: cover; border-radius: 10px; }
+        .summary h3 { font-size: 19px; margin-bottom: 4px; }
+        .summary .meta { color: #5b7bbf; font-size: 13px; }
+
+        .detail { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid #eef3fc; font-size: 15px; }
+        .detail:last-child { border-bottom: none; }
+        .detail .k { color: #5b7bbf; }
+        .detail .v { font-weight: 600; }
+
+        .total { display: flex; justify-content: space-between; align-items: center; margin-top: 18px;
+                 padding-top: 18px; border-top: 2px solid #e9f0ff; }
+        .total .lbl { font-size: 16px; font-weight: 700; }
+        .total .amt { font-size: 28px; font-weight: 800; color: #356ae6; }
+
+        label { display: block; font-size: 13px; color: #5b7bbf; margin: 16px 0 6px; font-weight: 600; }
+        input { width: 100%; padding: 12px 14px; border: 1px solid #cdd9f0; border-radius: 9px; font-size: 15px; color: #17366d; outline: none; }
+        input:focus { border-color: #356ae6; box-shadow: 0 0 0 3px rgba(53,106,230,0.15); }
+        .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        .pay-btn { width: 100%; margin-top: 26px; padding: 15px; background: #356ae6; color: #fff; border: none;
+                   border-radius: 11px; font-size: 17px; font-weight: 700; cursor: pointer; transition: background .15s, transform .12s; }
+        .pay-btn:hover { background: #1f4fc4; transform: translateY(-2px); }
+        .pay-btn:disabled { background: #b9c8e8; cursor: wait; transform: none; }
+
+        .badge { display: inline-block; background: #eef4ff; color: #356ae6; font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 700; }
+
+        .success { text-align: center; padding: 60px 20px; }
+        .success .tick { font-size: 64px; margin-bottom: 14px; }
+        .success h1 { color: #1f9d5b; }
+        .success .bk { font-size: 22px; font-weight: 800; color: #17366d; margin: 18px 0; }
+        .success .cta { display: inline-block; margin-top: 20px; padding: 13px 32px; background: #356ae6;
+                        color: #fff; border-radius: 10px; text-decoration: none; font-weight: 700; }
+        .err { color: #e0454d; font-size: 14px; margin-top: 14px; text-align: center; min-height: 18px; }
+        .empty { text-align: center; padding: 70px; color: #8aa3d6; }
+        footer { background: #17366d; color: #cfe0ff; text-align: center; padding: 24px; font-size: 13px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Stay<span>Smart</span></div>
+        <div class="links">
+            <a href="HomePage.html">Home</a>
+            <a href="Rooms.html">Rooms</a>
+        </div>
+        <div class="user"><button id="logoutBtn">Logout</button></div>
+    </nav>
+
+    <div class="wrap" id="page">
+        <div class="empty">Loading your booking…</div>
+    </div>
+
+    <footer>© StaySmart · Smart hotel booking platform</footer>
+
+    <script>
+        const API = "https://axujjglrqnppgzoocrng.supabase.co/functions/v1/staysmart-api/api";
+
+        const ROOM_IMAGES = {
+            deluxe:  "https://images.pexels.com/photos/6434592/pexels-photo-6434592.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+            premium: "https://images.pexels.com/photos/2736384/pexels-photo-2736384.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+            family:  "https://images.pexels.com/photos/14022458/pexels-photo-14022458.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+        };
+        const DEFAULT_IMG = "https://images.pexels.com/photos/8312027/pexels-photo-8312027.jpeg?auto=compress&cs=tinysrgb&h=650&w=940";
+
+        (function () {
+            const role = localStorage.getItem("ss_role");
+            const email = localStorage.getItem("ss_email");
+            if (!role || !email) { location.href = "Loginpage.HTML"; }
+        })();
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("ss_role");
+            localStorage.removeItem("ss_email");
+            location.href = "Loginpage.HTML";
+        });
+
+        const stored = sessionStorage.getItem("ss_booking");
+        if (!stored) {
+            document.getElementById("page").innerHTML =
+                '<div class="empty">No room selected. <a href="Rooms.html" style="color:#356ae6;font-weight:700">Browse rooms →</a></div>';
+        } else {
+            renderBooking(JSON.parse(stored));
+        }
+
+        function nights(ci, co) {
+            const a = new Date(ci + "T00:00:00"), b = new Date(co + "T00:00:00");
+            const n = Math.round((b - a) / 86400000);
+            return n > 0 ? n : 0;
+        }
+
+        function renderBooking(b) {
+            const room = b.room;
+            const n = nights(b.checkIn, b.checkOut);
+            const total = n > 0 ? b.price * n : b.price;
+            const img = ROOM_IMAGES[(room.image_key || "").toLowerCase()] || DEFAULT_IMG;
+            const guestEmail = localStorage.getItem("ss_email") || "";
+            const guestName = guestEmail.split("@")[0].replace(/[._]/g, " ");
+
+            document.getElementById("page").innerHTML = `
+                <h1>Review &amp; Pay</h1>
+                <p class="sub">Confirm your stay and complete the booking</p>
+                <div class="layout">
+                    <div class="panel">
+                        <h2>Booking Summary</h2>
+                        <div class="summary">
+                            <img src="${img}" alt="${room.title}">
+                            <div>
+                                <h3>${room.title}</h3>
+                                <div class="meta">Room ${room.room_number} · Sleeps ${room.capacity}</div>
+                                <div class="meta" style="margin-top:6px"><span class="badge">₹${b.price}/night</span></div>
+                            </div>
+                        </div>
+                        <div class="detail"><span class="k">Check-in</span><span class="v">${b.checkIn}</span></div>
+                        <div class="detail"><span class="k">Check-out</span><span class="v">${b.checkOut}</span></div>
+                        <div class="detail"><span class="k">Guests</span><span class="v">${b.guests}</span></div>
+                        <div class="detail"><span class="k">Nights</span><span class="v">${n}</span></div>
+                        <div class="detail"><span class="k">Rate / night</span><span class="v">₹${b.price}</span></div>
+                        <div class="total"><span class="lbl">Total payable</span><span class="amt">₹${total}</span></div>
+                    </div>
+                    <div class="panel">
+                        <h2>Guest Details</h2>
+                        <form id="payForm">
+                            <label>Full name</label>
+                            <input type="text" id="guestName" value="${guestName}" required>
+                            <label>Email</label>
+                            <input type="email" id="guestEmail" value="${guestEmail}" required>
+                            <label>Phone</label>
+                            <input type="tel" id="guestPhone" placeholder="e.g. 9876543210" required>
+                            <h2 style="margin-top:26px">Payment</h2>
+                            <label>Card number</label>
+                            <input type="text" id="card" placeholder="4242 4242 4242 4242" maxlength="19" required>
+                            <div class="two">
+                                <div><label>Expiry</label><input type="text" id="exp" placeholder="12/28" maxlength="5" required></div>
+                                <div><label>CVV</label><input type="text" id="cvv" placeholder="123" maxlength="4" required></div>
+                            </div>
+                            <button type="submit" class="pay-btn" id="payBtn">Pay ₹${total} &amp; Confirm</button>
+                            <div class="err" id="err"></div>
+                        </form>
+                    </div>
+                </div>`;
+
+            document.getElementById("payForm").addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById("payBtn");
+                const err = document.getElementById("err");
+                btn.disabled = true;
+                btn.textContent = "Processing payment…";
+                err.textContent = "";
+
+                try {
+                    const res = await fetch(`${API}/bookings/`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            guestName: document.getElementById("guestName").value.trim(),
+                            guestEmail: document.getElementById("guestEmail").value.trim(),
+                            room: room.room_type || room.title,
+                            roomId: room.room_number,
+                            checkIn: b.checkIn,
+                            checkOut: b.checkOut,
+                            guests: Number(b.guests),
+                            pricePaid: total,
+                        }),
+                    });
+                    const data = await res.json();
+                    if (res.ok && data.status === "success") {
+                        sessionStorage.removeItem("ss_booking");
+                        document.getElementById("page").innerHTML = `
+                            <div class="success">
+                                <div class="tick">✅</div>
+                                <h1>Booking Confirmed!</h1>
+                                <p class="sub">Your stay at StaySmart is all set.</p>
+                                <div class="bk">Booking ID: ${data.booking.id}</div>
+                                <p class="sub">${room.title} · ${b.checkIn} → ${b.checkOut} · ₹${total}</p>
+                                <a class="cta" href="HomePage.html">Back to Home</a>
+                            </div>`;
+                    } else {
+                        err.textContent = data.message || "Booking failed. Please try again.";
+                        btn.disabled = false;
+                        btn.textContent = "Pay ₹" + total + " & Confirm";
+                    }
+                } catch (err2) {
+                    err.textContent = "Network error. Please try again.";
+                    btn.disabled = false;
+                    btn.textContent = "Pay ₹" + total + " & Confirm";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaySmart · Rooms</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", Arial, sans-serif; }
+        body { background: #f4f7ff; color: #17366d; }
+        nav { background: linear-gradient(135deg, #17366d, #356ae6); color: #fff;
+              display: flex; align-items: center; justify-content: space-between;
+              padding: 16px 40px; position: sticky; top: 0; z-index: 50; box-shadow: 0 4px 18px rgba(23,54,109,0.25); }
+        nav .logo { font-size: 24px; font-weight: 800; }
+        nav .logo span { color: #9fc0ff; }
+        nav .links a { color: #dce7ff; text-decoration: none; margin-left: 26px; font-size: 15px; }
+        nav .links a:hover, nav .links a.active { color: #fff; }
+        nav .user { font-size: 14px; color: #cfe0ff; }
+        nav .user button { margin-left: 14px; padding: 7px 16px; border-radius: 8px; border: 1px solid #9fc0ff;
+                           background: transparent; color: #fff; cursor: pointer; font-size: 13px; }
+        nav .user button:hover { background: rgba(255,255,255,0.15); }
+
+        .topbar { background: #fff; padding: 26px 40px; box-shadow: 0 4px 14px rgba(23,54,109,0.07); }
+        .topbar .inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+        .topbar h1 { font-size: 28px; }
+        .topbar p { color: #5b7bbf; font-size: 14px; margin-top: 4px; }
+        .field label { display: block; font-size: 12px; color: #5b7bbf; margin-bottom: 5px; font-weight: 600; }
+        .field input { padding: 11px 14px; border: 1px solid #cdd9f0; border-radius: 9px; font-size: 15px; color: #17366d; outline: none; }
+        .field input:focus { border-color: #356ae6; box-shadow: 0 0 0 3px rgba(53,106,230,0.15); }
+        .apply { padding: 12px 24px; background: #356ae6; color: #fff; border: none; border-radius: 9px;
+                 font-weight: 700; cursor: pointer; font-size: 15px; }
+        .apply:hover { background: #1f4fc4; }
+        .dynamic-note { color: #356ae6; font-size: 13px; font-weight: 600; margin-left: auto; }
+
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+        .rooms { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; }
+        .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(23,54,109,0.1);
+                transition: transform .18s, box-shadow .18s; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 16px 36px rgba(23,54,109,0.18); }
+        .card img { width: 100%; height: 210px; object-fit: cover; }
+        .card .body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+        .card h3 { font-size: 20px; margin-bottom: 6px; }
+        .card .meta { color: #5b7bbf; font-size: 13px; margin-bottom: 14px; }
+        .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+        .price-row .now { font-size: 26px; font-weight: 800; color: #356ae6; }
+        .price-row .base { font-size: 14px; color: #8aa3d6; text-decoration: line-through; }
+        .price-row .tag { font-size: 11px; background: #fff0e6; color: #e6792b; padding: 3px 9px; border-radius: 20px; font-weight: 700; }
+        .amenities { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+        .amenities span { background: #eef4ff; color: #356ae6; font-size: 12px; padding: 5px 11px; border-radius: 20px; }
+        .book-form { margin-top: auto; }
+        .book-form .row { display: flex; gap: 10px; margin-bottom: 12px; }
+        .book-form .row label { display: block; font-size: 11px; color: #5b7bbf; margin-bottom: 4px; font-weight: 600; }
+        .book-form .row input { width: 100%; padding: 9px 11px; border: 1px solid #cdd9f0; border-radius: 8px; font-size: 14px; color: #17366d; outline: none; }
+        .book-form .row input:focus { border-color: #356ae6; }
+        .book-btn { width: 100%; padding: 12px; background: #356ae6; color: #fff; border: none; border-radius: 9px;
+                    font-weight: 700; cursor: pointer; font-size: 15px; transition: background .15s; }
+        .book-btn:hover { background: #1f4fc4; }
+        .book-btn:disabled { background: #b9c8e8; cursor: not-allowed; }
+        .loader { text-align: center; padding: 50px; color: #8aa3d6; }
+        footer { background: #17366d; color: #cfe0ff; text-align: center; padding: 26px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Stay<span>Smart</span></div>
+        <div class="links">
+            <a href="HomePage.html">Home</a>
+            <a href="Rooms.html" class="active">Rooms</a>
+            <a href="#" id="adminLink" style="display:none">Dashboard</a>
+        </div>
+        <div class="user">
+            <span id="greeting">Guest</span>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </nav>
+
+    <div class="topbar">
+        <div class="inner">
+            <div>
+                <h1>Find Your Room</h1>
+                <p>Pick a check-in date to see live dynamic pricing</p>
+            </div>
+            <div class="field">
+                <label for="checkIn">Check-in date</label>
+                <input type="date" id="checkIn">
+            </div>
+            <button class="apply" id="applyBtn">Apply Pricing</button>
+            <div class="dynamic-note" id="note"></div>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <div class="rooms" id="roomsGrid">
+            <div class="loader">Loading rooms…</div>
+        </div>
+    </div>
+
+    <footer>© StaySmart · Smart hotel booking platform</footer>
+
+    <script>
+        const API = "https://axujjglrqnppgzoocrng.supabase.co/functions/v1/staysmart-api/api";
+
+        const ROOM_IMAGES = {
+            deluxe:  "https://images.pexels.com/photos/6434592/pexels-photo-6434592.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+            premium: "https://images.pexels.com/photos/2736384/pexels-photo-2736384.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+            family:  "https://images.pexels.com/photos/14022458/pexels-photo-14022458.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+        };
+        const DEFAULT_IMG = "https://images.pexels.com/photos/8312027/pexels-photo-8312027.jpeg?auto=compress&cs=tinysrgb&h=650&w=940";
+        function imgFor(key) { return ROOM_IMAGES[(key || "").toLowerCase()] || DEFAULT_IMG; }
+
+        // Session guard
+        (function () {
+            const role = localStorage.getItem("ss_role");
+            const email = localStorage.getItem("ss_email");
+            if (!role || !email) { location.href = "Loginpage.HTML"; return; }
+            const name = email.split("@")[0];
+            document.getElementById("greeting").textContent = role === "admin" ? `Manager · ${name}` : `Hi, ${name}`;
+            if (role === "admin") document.getElementById("adminLink").style.display = "inline";
+            document.getElementById("adminLink").addEventListener("click", (e) => { e.preventDefault(); location.href = "AdminHomePage.HTML"; });
+        })();
+
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("ss_role");
+            localStorage.removeItem("ss_email");
+            location.href = "Loginpage.HTML";
+        });
+
+        // Default check-in = today
+        const checkInInput = document.getElementById("checkIn");
+        checkInInput.value = new Date().toISOString().split("T")[0];
+
+        let lastRooms = [];
+
+        async function loadRooms() {
+            const grid = document.getElementById("roomsGrid");
+            const note = document.getElementById("note");
+            const checkIn = checkInInput.value;
+            grid.innerHTML = '<div class="loader">Loading rooms…</div>';
+            note.textContent = "";
+
+            try {
+                const qs = checkIn ? `?checkIn=${encodeURIComponent(checkIn)}` : "";
+                const res = await fetch(`${API}/rooms/${qs}`);
+                const data = await res.json();
+                if (data.status !== "success" || !data.rooms.length) {
+                    grid.innerHTML = '<div class="loader">No rooms available right now.</div>';
+                    return;
+                }
+                lastRooms = data.rooms;
+                note.textContent = checkIn ? "Showing dynamic prices for " + checkIn : "Showing base prices";
+                render();
+            } catch (err) {
+                grid.innerHTML = '<div class="loader">Could not load rooms. Please refresh.</div>';
+            }
+        }
+
+        function render() {
+            const grid = document.getElementById("roomsGrid");
+            grid.innerHTML = lastRooms.map(r => {
+                const dynamic = r.calculated_price !== r.base_price;
+                return `
+                <div class="card">
+                    <img src="${imgFor(r.image_key)}" alt="${r.title}">
+                    <div class="body">
+                        <h3>${r.title}</h3>
+                        <div class="meta">Room ${r.room_number} · Sleeps ${r.capacity} · ${r.total_rooms} in inventory</div>
+                        <div class="price-row">
+                            <span class="now">₹${r.calculated_price}</span>
+                            ${dynamic ? `<span class="base">₹${r.base_price}</span><span class="tag">Smart Rate</span>` : `<span class="base" style="text-decoration:none;color:#8aa3d6">/ night</span>`}
+                        </div>
+                        <div class="amenities">${(r.amenities || []).map(a => `<span>${a}</span>`).join("")}</div>
+                        <form class="book-form" data-room='${JSON.stringify(r).replace(/'/g, "&#39;")}'>
+                            <div class="row">
+                                <div style="flex:1">
+                                    <label>Check-in</label>
+                                    <input type="date" name="checkIn" value="${checkInInput.value}" required>
+                                </div>
+                                <div style="flex:1">
+                                    <label>Check-out</label>
+                                    <input type="date" name="checkOut" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div style="flex:1">
+                                    <label>Guests</label>
+                                    <input type="number" name="guests" min="1" max="${r.capacity}" value="1" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="book-btn">Book this Room</button>
+                        </form>
+                    </div>
+                </div>`;
+            }).join("");
+
+            grid.querySelectorAll(".book-form").forEach(form => {
+                form.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const room = JSON.parse(form.getAttribute("data-room"));
+                    const fd = new FormData(form);
+                    const payload = {
+                        room: room,
+                        roomId: room.room_number,
+                        checkIn: fd.get("checkIn"),
+                        checkOut: fd.get("checkOut"),
+                        guests: fd.get("guests"),
+                        price: room.calculated_price,
+                    };
+                    sessionStorage.setItem("ss_booking", JSON.stringify(payload));
+                    location.href = "Payment.html";
+                });
+            });
+        }
+
+        document.getElementById("applyBtn").addEventListener("click", loadRooms);
+        loadRooms();
+    </script>
+</body>
+</html>
